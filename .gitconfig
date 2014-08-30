@@ -1,0 +1,21 @@
+[user]
+	name = amyilake
+	email = ilake.chang@gmail.com
+[url "https://"]
+	insteadof = git://
+[apply]
+	whitespace = nowarn
+[color]
+    ui = true
+    diff = auto
+[http]
+	sslVerify = false
+[push]
+    default = current
+[branch]
+    autosetuprebase = always
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    br = branch

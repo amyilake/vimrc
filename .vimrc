@@ -23,6 +23,7 @@ Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-surround'
 Bundle 'rking/ag.vim'
 Bundle 'mileszs/ack.vim'
+Bundle 'ilake/vim-tslime'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'godlygeek/tabular'
 Bundle 'koron/nyancat-vim'
@@ -34,6 +35,7 @@ Bundle 'majutsushi/tagbar'
 Bundle 'othree/coffee-check.vim'
 "Bundle 'LnL7/vim-tslime'
 " Bundle 'kikijump/tslime.vim'
+Bundle 'ilake/vim-turbux'
 Bundle 'slim-template/vim-slim'
 Bundle 'terryma/vim-multiple-cursors'
 " vim-scripts repos
@@ -179,7 +181,6 @@ augroup myfiletypes
   autocmd BufNewFile,BufRead *.rl               set ft=ragel
   autocmd BufNewFile,BufRead *.json             set ft=javascript
   " make CSS omnicompletion work for SASS and SCSS
-  autocmd BufNewFile,BufRead *.json             set ft=javascript
   autocmd BufNewFile,BufRead *.coffee           set ft=coffee
   autocmd! BufNewFile,BufRead *.scss,*.sass      set ft=scss.css
   autocmd BufNewFile,BufRead Gemfile set filetype=ruby
@@ -199,6 +200,13 @@ augroup vimrcEx
       \   exe "normal g`\"" |
       \ endif
 augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup reload_vimrc " {
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FILE COMMANDS
@@ -396,7 +404,8 @@ set noswapfile
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-(%)
+:set statusline+=\ [line\ %l,%02c%03V\/%L]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYSTEM COPY PASTE
@@ -504,7 +513,7 @@ let g:multi_cursor_exit_from_insert_mode = 0
     let g:no_turbux_mappings = 1
     let g:turbux_runner  = 'tslime'
 
-    let g:turbux_command_rspec  = 'zeus-rspec'        " default: rspec
+    let g:turbux_command_rspec  = 'zeus rspec'        " default: rspec
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

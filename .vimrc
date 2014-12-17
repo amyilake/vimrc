@@ -65,7 +65,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'greyblake/vim-preview'
 Bundle 'terryma/vim-expand-region'
 Bundle 'mattn/emmet-vim.git'
-
+Bundle 'bitfyre/vim-indent-html'
 
 " http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file
 " let mapleader=","
@@ -184,7 +184,7 @@ augroup myfiletypes
   autocmd BufNewFile,BufRead *.coffee           set ft=coffee
   autocmd! BufNewFile,BufRead *.scss,*.sass      set ft=scss.css
   autocmd BufNewFile,BufRead Gemfile set filetype=ruby
-  autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+  autocmd FileType tmpl,html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
   "autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/vim-addons/github-docunext-closetag.vim/plugin/closetag.vim
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
@@ -622,3 +622,8 @@ vmap <silent> <expr> p <sid>Repl()
 " command alias
 command! To tabo
 command! Tm tabm
+
+" for html indent
+filetype indent on
+set filetype=html
+set smartindent

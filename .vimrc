@@ -19,7 +19,6 @@ Bundle 'danro/rename.vim'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-surround'
 Bundle 'rking/ag.vim'
 Bundle 'mileszs/ack.vim'
@@ -66,6 +65,12 @@ Bundle 'greyblake/vim-preview'
 Bundle 'terryma/vim-expand-region'
 Bundle 'mattn/emmet-vim.git'
 Bundle 'bitfyre/vim-indent-html'
+Bundle 'tpope/vim-rails.git'
+Bundle 'pangloss/vim-javascript'
+"Bundle 'https://github.com/mxw/vim-jsx.git'
+"Bundle 'https://github.com/othree/javascript-libraries-syntax.vim'
+"Bundle 'othree/yajs.vim'
+Bundle 'alvan/vim-closetag'
 
 " http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file
 " let mapleader=","
@@ -431,6 +436,7 @@ let g:rails_projections = {
       \ "app/serializers/*.rb": { "command": "serializers" },
       \ "app/observers/*.rb": { "command": "observers" },
       \ "app/workers/*.rb": { "command": "workers" },
+      \ "app/policies/*.rb": { "command": "policies" },
       \ "app/reports/*.rb": { "command": "reports" },
       \ "app/queries/*.rb": { "command": "queries" },
       \ "app/validators/*.rb": { "command": "validators" },
@@ -447,6 +453,7 @@ let g:rails_projections = {
       \ "spec/factories/fields/*.rb": {"command": "factories"},
       \ "spec/features/*.rb": {"command": "features"},
       \ "spec/support/*.rb": {"command": "supports"},
+      \ "spec/policies/*.rb": {"command": "policies"},
       \ "lib/tasks/*.rake": {"alternate": ["spec/lib/tasks/%s.rake_spec.rb"]},
       \ "app/assets/javascripts/*.js.coffee": {"alternate": ["spec/javascripts/%s_spec.js.coffee"]},
       \ "spec/javascripts/*_spec.js.coffee": {"alternate": ["app/assets/javascripts/%s.js.coffee"]}
@@ -579,6 +586,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=233
 " autocmd FileType html,css EmmetInstall
 let g:user_emmet_leader_key='<C-M>'
 
+let g:jsx_ext_required = 0
 
 :map <leader>l :PromoteToLet<cr>
 :map <leader>g :PromoteToGiven<cr>
@@ -618,6 +626,39 @@ function! s:Repl()
   let s:restore_reg = @"
   return "p@=RestoreRegister()\<cr>"
 endfunction
+
+" 替換函數。參數說明：
+" confirm：是否替換前逐一確認
+" wholeword：是否整詞匹配
+" replace：被替換字符串
+function! Replace(confirm, wholeword, replace)
+  wa
+  let flag = ''
+  if a:confirm
+    let flag .= 'gec'
+  else
+    let flag .= 'ge'
+  endif
+  let search = ''
+  if a:wholeword
+    let search .= '\<' . escape(expand('<cword>'), '/\.*$^~[') . '\>'
+  else
+    let search .= expand('<cword>')
+  endif
+  let replace = escape(a:replace, '/\&~')
+  execute 'argdo %s/' . search . '/' . replace . '/' . flag . '| update'
+endfunction
+" 不確認、非整詞
+noremap <Leader>R :call Replace(0, 0, input('Replace '.expand('<cword>').' with: '))<CR>
+" 不確認、整詞
+nnoremap <Leader>rw :call Replace(0, 1, input('Replace '.expand('<cword>').' with: '))<CR>
+" 確認、非整詞
+nnoremap <Leader>rc :call Replace(1, 0, input('Replace '.expand('<cword>').' with: '))<CR>
+" 確認、整詞
+nnoremap <Leader>rcw :call Replace(1, 1, input('Replace '.expand('<cword>').' with: '))<CR>
+nnoremap <Leader>rwc :call Replace(1, 1, input('Replace '.expand('<cword>').' with: '))<CR>
+
+
 vmap <silent> <expr> p <sid>Repl()
 " command alias
 command! To tabo
@@ -625,5 +666,10 @@ command! Tm tabm
 
 " for html indent
 filetype indent on
-set filetype=html
+" set filetype=html
 set smartindent
+set cindent
+let g:JSLintHighlightErrorLine = 0
+
+" for html close tag
+let g:closetag_filenames = "*.html.erb,*.html,*.xhtml,*.phtml"

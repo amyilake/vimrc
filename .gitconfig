@@ -1,5 +1,5 @@
 [user]
-	name = amyilake
+	name = mylake
 	email = ilake.chang@gmail.com
 [url "https://"]
 	insteadof = git://
@@ -19,3 +19,5 @@
     ci = commit
     co = checkout
     br = branch
+    fs = flow feature start
+    ff = flow feature finish

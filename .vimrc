@@ -81,6 +81,7 @@ map <Leader>ct :!ctags -R .<CR>
 
 " ENCODING SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set number
 set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
@@ -107,6 +108,7 @@ nnoremap <C-H> <C-W><C-H>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set guicursor=i:block-iCursor-blinkon0,v:block-vCursor
 " allow unsaved background buffers and remember marks/undo for them
 set hidden             " Hide buffers when they are abandoned
 set autowrite           " Automatically save before commands like :next and :make
@@ -131,7 +133,7 @@ set hlsearch
 " insert tabs on the start of a line according to context
 set smarttab
 set switchbuf=useopen
-set numberwidth=5
+set numberwidth=4
 set winwidth=79
 " disable sound on errors
 set noerrorbells
@@ -172,7 +174,7 @@ filetype plugin indent on
 " make tab completion for files/buffers act like bash
 set wildmenu
 " set folding method by syntax
-set foldmethod=syntax
+" set foldmethod=syntax
 set foldlevelstart=20
 set colorcolumn=120
 
@@ -283,7 +285,7 @@ endfunction
 " Rails Logger Variable
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RailsLoggerVariable()
-  :.s/\(\s*\)\(.*\)$/\1Rails.logger.info "==\2===== #{\2} === "\r/
+  :.s/\(\s*\)\(.*\)$/\1Rails.logger.info {"==\2===== #{\2} === }"\r/
   :w
 endfunction
 :command! RailsLoggerVariable :call RailsLoggerVariable()
@@ -383,7 +385,7 @@ nmap <F2> :FufFile **/<CR>
 :noremap <F4> :set hlsearch! hlsearch?<CR>
 
 :noremap <F5> :set nu! nu?<CR>
-
+highlight LineNr ctermfg=LightGray ctermbg=DarkGray
 :noremap <F6> :b#<CR>
 
 :noremap <F7> :TagbarToggle<CR>
@@ -403,6 +405,7 @@ au BufRead,BufNewFile *.scss set filetype=scss
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.jbuilder set filetype=ruby
 au BufNewFile,BufRead *.json set filetype=ruby
+au BufRead,BufNewFile *.ru setfiletype ruby
 
 set noswapfile
 
@@ -497,9 +500,8 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-multi-cursor
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:multi_cursor_exit_from_insert_mode = 0
-
-
+" let g:multi_cursor_exit_from_insert_mode = 0
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctrlp
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -673,3 +675,4 @@ let g:JSLintHighlightErrorLine = 0
 
 " for html close tag
 let g:closetag_filenames = "*.html.erb,*.html,*.xhtml,*.phtml"
+

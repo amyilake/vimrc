@@ -71,6 +71,7 @@ Bundle 'pangloss/vim-javascript'
 "Bundle 'https://github.com/othree/javascript-libraries-syntax.vim'
 "Bundle 'othree/yajs.vim'
 Bundle 'alvan/vim-closetag'
+Bundle 'tpope/vim-endwise'
 
 " http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file
 " let mapleader=","
